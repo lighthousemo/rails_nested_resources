@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @article.title %>
+</h1>
+
+<p>
+  <%= @article.content %>
+</p>
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
+
+<h3>Comments</h3>
+
+<div class="comment-form-wrapper">
+  <%= form_for [@article, @comment] do |f| %>
+    <p>
+      <%= f.label :name, "Nickname" %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+    </p>
+    <p>
+      <%= f.submit "Create Comment" %>
+    </p>
+  <% end %>
+</div>
+
+<p>All comments for this article</p>
+<% @article.comments.each do |comment| %>
+  <p>
+    <strong><%= comment.name %></strong><br/>
+    <%= comment.content %>
+  </p>
+<% end %>
+
+
+<h3>Fun with named routes</h3>
+<p> articles_path is <%= articles_path %></p>
+<p> article_path is <%= link_to("First Article", article_path(Article.first)) %></p>
+<p> article_comments_path is <%= article_comments_path(Article.first) %></p>
+<p> article_comments_url is <%= article_comments_url(Article.first) %></p>
